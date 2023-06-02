@@ -16,7 +16,7 @@ GPU Type: NVIDIA A100-PCIE-40GB
 
 
 CPU util       CPU mem used/total       GPU mem used/total       GPU util
-0%             1.3Gi/503Gi              0.0Gi/40.0Gi             0%
+2%             1.3Gi/503Gi              9.6Gi/40.0Gi             43%
 ```
 
 ### Requirements

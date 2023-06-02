@@ -28,10 +28,11 @@ lscpu | grep Model
 mpstat 1 1
 nvidia-smi
 free -h
+```
 
 ### Changing the Name of the Server
 
-run the command:
+To determine the system manufacturer and product name of the system, you can run the following commands:
 ```
 sudo dmidecode -s system-manufacturer
 sudo dmidecode -s system-product-name

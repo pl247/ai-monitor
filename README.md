@@ -29,3 +29,12 @@ mpstat 1 1
 nvidia-smi
 free -h
 
+### Changing the Name of the Server
+
+run the command:
+```
+sudo dmidecode -s system-manufacturer
+sudo dmidecode -s system-product-name
+```
+
+These commands can be incorporated into the script if you like

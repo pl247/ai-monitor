@@ -7,7 +7,7 @@ This script will only work if the following commands work on your system:
 ### Sample Output
 
 ```
-$ python ai_monitor.py 
+$ python ai-monitor.py 
 
 Cisco UCSX-210C-M6 computing node with X440p PCIE node X-Fabric Enabled
 
@@ -39,3 +39,7 @@ sudo dmidecode -s system-product-name
 ```
 
 These commands can be incorporated into the script if you like
+
+### Executable Option
+
+If you prefer you can just download the ai-monitor binary (10.7MB) from the Releases section and run it directly on your machine.

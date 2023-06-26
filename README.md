@@ -43,3 +43,9 @@ These commands can be incorporated into the script if you like
 ### Executable Option
 
 If you prefer you can just download the ai-monitor binary (10.7MB) from the Releases section and run it directly on your machine.
+
+### Future Enhancements
+
+1. Add error checking for ctrl-c
+2. Allow script to work if no NVIDIA GPU is found (CPU only mode)
+3. Report network bandwidth used

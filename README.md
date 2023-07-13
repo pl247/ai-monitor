@@ -2,8 +2,6 @@
 
 This simple script provides a compact view of CPU performance, memory utilization as well as GPU memory and GPU performance
 
-This script will only work if the following commands work on your system:
-
 ### Sample Output
 
 ```

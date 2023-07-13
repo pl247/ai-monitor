@@ -1,6 +1,6 @@
 # Python Script to Monitor CPU and GPU on Ubuntu
 
-This simple script provides a compact view of CPU performance, memory utilization as well as GPU memory and GPU performance
+This simple script provides a clean compact view of CPU performance, memory utilization as well as GPU memory and GPU performance. Great for monitoring your system as you run LLM and other AI/ML workloads.
 
 ### Sample Output
 

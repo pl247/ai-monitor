@@ -55,7 +55,7 @@ def main():
     print(f"\nCisco UCSX-210C-M7 computing node with X440p PCIE node X-Fabric Enabled")
     print(f"\nCPU Type: {cpu_sockets} x {cpu_type} with {cpu_cores} cores each")
     print(f"GPU Type: {gpu_name}\n")
-    print(f"\nCPU util\tCPU mem used/total/tGPU mem used/total\tGPU util")
+    print(f"\nCPU util\tCPU mem used/total\tGPU mem used/total\tGPU util")
     while True:
         cpu_average = get_cpu_average()
         gpu_name, memory_used, gpu_utilization, gpu_memory_gib = get_gpu_info()

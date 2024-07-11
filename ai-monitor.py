@@ -57,11 +57,11 @@ def main():
     print(f"GPU Type: {gpu_name}\n")
     print(f"\nCPU util\tCPU mem used/total\tGPU mem used/total\tGPU util")
     while True:
-        cpu_average = get_cpu_average()
+        cpu_average_float = float(get_cpu_average())
+        cpu_average = int(cpu_average_float)
         gpu_name, memory_used, gpu_utilization, gpu_memory_gib = get_gpu_info()
         total_memory, used_memory, available_memory = get_memory_info()
-
-        print(f"\r{cpu_average}%   \t\t{used_memory}/{total_memory}\t\t{memory_used}Gi/{gpu_memory_gib}Gi\t\t{gpu_utilization}%   ", end="", flush=True)
+        print(f"\r{cpu_average:3d}%  \t\t{used_memory}/{total_memory}\t\t{memory_used}Gi/{gpu_memory_gib}Gi\t\t{gpu_utilization}%  ", end="", flush=True)
         time.sleep(1)
 
 try:

@@ -2,6 +2,7 @@
 
 import subprocess
 import time
+import sys
 
 def get_cpu_type():
     command = "lscpu | grep 'Model name:' | awk -F': ' '{print $2}'"
@@ -31,7 +32,7 @@ def get_gpu_info():
     try:
         result = subprocess.check_output(command, shell=True).decode().strip()
     except subprocess.CalledProcessError:
-        return 'N/A', 0.0, 0.0, 0.0
+        return 'None', 0.0, 0.0, 0.0
     else:
         gpu_name, memory_used, gpu_utilization, gpu_memory = result.split(", ")
         memory_used = int(memory_used)
@@ -51,7 +52,7 @@ def main():
     cpu_cores = get_cpu_cores()
     cpu_type = get_cpu_type()
     gpu_name, memory_used, gpu_utilization, gpu_memory_gib = get_gpu_info()
-    print(f"\nCisco UCSX-210C-M6 computing node with X440p PCIE node X-Fabric Enabled")
+    print(f"\nCisco UCSX-210C-M7 computing node with X440p PCIE node X-Fabric Enabled")
     print(f"\nCPU Type: {cpu_sockets} x {cpu_type} with {cpu_cores} cores each")
     print(f"GPU Type: {gpu_name}\n")
     print(f"\nCPU util       CPU mem used/total       GPU mem used/total       GPU util")
@@ -66,4 +67,5 @@ def main():
 try:
     main()
 except KeyboardInterrupt:
+    print(f"\n\nExiting...\n")
     sys.exit()

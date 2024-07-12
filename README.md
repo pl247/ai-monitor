@@ -28,16 +28,6 @@ nvidia-smi
 free -h
 ```
 
-### Changing the Name of the Server
-
-To determine the system manufacturer and product name of the system, you can run the following commands:
-```
-sudo dmidecode -s system-manufacturer
-sudo dmidecode -s system-product-name
-```
-
-These commands can be incorporated into the script if you like
-
 ### Executable Option
 
 If you prefer you can just download the ai-monitor binary (10.7MB) from the Releases section and run it directly on your machine.

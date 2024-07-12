@@ -14,7 +14,7 @@ GPU Type: NVIDIA A100-PCIE-40GB
 
 
 CPU util       CPU mem used/total       GPU mem used/total       GPU util
-2%             1.3Gi/503Gi              9.6Gi/40.0Gi             43%
+0.02   %       1.3Gi/503Gi              9.6Gi/40.0Gi             43     %
 ```
 
 ### Requirements
@@ -44,6 +44,5 @@ If you prefer you can just download the ai-monitor binary (10.7MB) from the Rele
 
 ### Future Enhancements
 
-1. Add error checking for ctrl-c
-2. Allow script to work if no NVIDIA GPU is found (CPU only mode)
-3. Report network bandwidth used
+1. Report network bandwidth used
+2. Support multiple GPU per host

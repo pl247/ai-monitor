@@ -4,6 +4,12 @@ import subprocess
 import time
 import sys
 
+def get_server_type():
+    command = "cat /sys/devices/virtual/dmi/id/product_name"
+    result = subprocess.check_output(command, shell=True, encoding='utf-8').strip()
+    server_type = result
+    return server_type
+
 def get_cpu_type():
     command = "lscpu | grep 'Model name:' | awk -F': ' '{print $2}'"
     result = subprocess.check_output(command, shell=True).decode().strip()
@@ -48,11 +54,12 @@ def get_memory_info():
     return total, used, available
 
 def main():
+    server_type = get_server_type()
     cpu_sockets = get_cpu_sockets()
     cpu_cores = get_cpu_cores()
     cpu_type = get_cpu_type()
     gpu_name, memory_used, gpu_utilization, gpu_memory_gib = get_gpu_info()
-    print(f"\nCisco UCSX-210C-M7 computing node with X440p PCIE node X-Fabric Enabled")
+    print(f"\nCisco {server_type} computing node with X440p PCIE node X-Fabric Enabled")
     print(f"\nCPU Type: {cpu_sockets} x {cpu_type} with {cpu_cores} cores each")
     print(f"GPU Type: {gpu_name}\n")
     print(f"\nCPU util\tCPU mem used/total\tGPU mem used/total\tGPU util")

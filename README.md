@@ -28,11 +28,22 @@ nvidia-smi
 free -h
 ```
 
+If you get an error message on psutil then do the following:
+```
+pip install psutil
+```
+
 ### Executable Option
 
 If you prefer you can just download the ai-monitor binary (10.7MB) from the Releases section and run it directly on your machine.
 
+### Testing network Bandwidth
+
+```
+sudo apt install iperf
+iperf -c 5.182.18.49 -u -b 1000M
+```
+
 ### Future Enhancements
 
-1. Report network bandwidth used
-2. Support multiple GPU per host
+1. Support multiple GPU per host

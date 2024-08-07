@@ -14,7 +14,7 @@ GPU Type: NVIDIA L4
 
 
 CPU util   CPU mem used/total	GPU mem used/total   GPU util   Network tx/rx util
-0.00   %   6.2Gi/3.9Ti		    0.00Gi/22Gi          0      %   4.32 Kbps/1.86 Kbps
+0.00   %   6.2Gi/3.9Ti		 0.00Gi/22Gi          0      %   4.32 Kbps/1.86 Kbps
 ```
 
 ### Requirements

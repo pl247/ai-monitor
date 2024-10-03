@@ -75,5 +75,5 @@ GPU: 6 x Tesla T4
 
  NIC1 tx: 446.49 Mbps, rx: 469.49 Mbps (eno5)
 
- LLM: 48.59 tokens/
+ LLM: 48.59 tokens/s
 ```

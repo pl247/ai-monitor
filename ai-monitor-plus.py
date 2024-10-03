@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# www.github.com/pl247
+# www.github.com/pl247/ai-toolkit
 
 import subprocess
 import time
@@ -7,6 +7,9 @@ import sys
 import psutil
 import curses
 import socket
+import requests
+import re
+import argparse  # Import the argparse module
 
 def convert_bps(bits_per_second):
     """Convert bits per second to Mbps or Gbps based on magnitude."""
@@ -98,11 +101,31 @@ def get_memory_info():
     total, used, available = result.split()
     return total, used, available
 
-def main(stdscr):
+def get_generation_throughput(api_url):
+    """Retrieve the average generation throughput from the vLLM API."""
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()  # Raise an error for bad status codes
+
+        # Extract the specific metric from the Prometheus text response
+        pattern = r'^vllm:avg_generation_throughput_toks_per_s{.*}\s+([\d\.]+)'
+        match = re.search(pattern, response.text, re.MULTILINE)
+        if match:
+            return float(match.group(1))
+        else:
+            print("Metric not found in response")
+            return None
+
+    except requests.RequestException as e:
+        print(f"Error retrieving throughput: {e}")
+        return None
+
+def main(stdscr, api_url):
     curses.curs_set(0)  # Hide the cursor
     stdscr.nodelay(1)  # Make getch() non-blocking
     stdscr.timeout(1000)  # Refresh every second
 
+    hostname = socket.gethostname()
     server_type = get_server_type()
     cpu_sockets = get_cpu_sockets()
     cpu_cores = get_cpu_cores()
@@ -119,9 +142,8 @@ def main(stdscr):
     COMPONENT_FORMAT = f" {{:<{COMPONENT_WIDTH}}}  {{:<{UTILIZATION_WIDTH}}}  {{:<{MEMORY_WIDTH}}}"
     NIC_FORMAT = f" {{:<{COMPONENT_WIDTH}}} {{:<{MEMORY_WIDTH}}} {{:<{MEMORY_WIDTH}}}"
 
-    #stdscr.addstr(0, 0, f"Cisco {server_type} computing node with X440p PCIE node X-Fabric Enabled")
-    stdscr.addstr(0, 0, f"Cisco {server_type} computing node")
-    stdscr.addstr(2, 0, f"CPU: {cpu_sockets} x {cpu_type} with {cpu_cores} cores each")
+    stdscr.addstr(0, 0, f"Cisco {server_type} computing node (hostname: {hostname})")
+    stdscr.addstr(2, 0, f"CPU: {cpu_sockets} x {cpu_type} with {cpu_cores} cores")
     if num_gpus > 0:
         stdscr.addstr(3, 0, f"GPU: {num_gpus} x {gpu_info[0][0]}")
     else:
@@ -144,10 +166,10 @@ def main(stdscr):
             # Print GPU metrics
             row_offset = 9 
             for i, (gpu_name, memory_used, gpu_utilization, gpu_memory) in enumerate(get_gpu_info()):
-                stdscr.addstr(row_offset + i, 0, COMPONENT_FORMAT.format(f"GPU{i+1}", f"{gpu_utilization}%", f"{memory_used:.2f}GiB/{gpu_memory:.2f}GiB"))
+                stdscr.addstr(row_offset + i, 0, COMPONENT_FORMAT.format(f"GPU{i+1}", f"{gpu_utilization}%", f"{memory_used:.1f}/{gpu_memory:.1f}Gi"))
 
             # Print NIC metrics
-            row_offset += num_gpus+1
+            row_offset += num_gpus + 1
             nic_index = 1
             for name, (sent_speed_human, recv_speed_human) in network_stats.items():
                 if any(addr.address for addr in psutil.net_if_addrs().get(name, []) if addr.family == socket.AF_INET):
@@ -156,14 +178,27 @@ def main(stdscr):
                     row_offset += 1
                     nic_index += 1
 
+            # Print Avg Generation Throughput if api_url is specified
+            if api_url:  # Check if api_url is specified
+                generation_throughput = get_generation_throughput(api_url)
+                if generation_throughput is not None:
+                    stdscr.addstr(row_offset + 1, 0, f" LLM: {generation_throughput:.2f} tokens/s")
+                    row_offset += 1
+
             stdscr.clrtoeol()  # Clear to end of line to handle overwriting
             stdscr.refresh()
             time.sleep(interval)
 
     except KeyboardInterrupt:
-        stdscr.addstr(row_offset + 1, 0, "Exiting gracefully...\n")
+        stdscr.addstr(row_offset + 2, 0, "Exiting gracefully...\n")
         stdscr.refresh()
         time.sleep(2)
 
 if __name__ == '__main__':
-    curses.wrapper(main)
+    parser = argparse.ArgumentParser(description="AI Network and GPU Monitoring Tool")
+    parser.add_argument('--api-url', type=str, default=None,
+                        help='The API URL to retrieve generation throughput from')
+    args = parser.parse_args()
+
+    curses.wrapper(lambda stdscr: main(stdscr, args.api_url))  # Pass the api_url to the main function
+

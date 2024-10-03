@@ -46,7 +46,32 @@ sudo apt install iperf
 iperf -c 5.182.18.49 -u -b 1000M
 ```
 
-### Future Enhancements
+### AI Monitor Plus
 
-1. Support multiple GPU per host
-2. Add API and webui
+If you run AI Monitor Plus, it supports multiple GPU and NIC per host (frontend and backend networking for example). It also has the ability to call the vLLM metrics API (if you are running vLLM) so that you can see the performance of the LLM in tokens/sec along side the workload metrics.
+
+### Sample Output of AI Monitor Plus
+
+```
+$ ./ai-monitor-plus.py 
+
+Cisco UCSC-C240-M5SX computing node (hostname: ai-11)
+
+CPU: 2 x Intel(R) Xeon(R) Gold 6248R CPU @ 3.00GHz with 24 cores
+GPU: 6 x Tesla T4
+
+       Use     Memory Use
+
+ CPU   4.87%   17Gi/1.5Ti
+
+ GPU1  88%     12.8/15.0Gi
+ GPU2  81%     12.7/15.0Gi
+ GPU3  82%     12.7/15.0Gi
+ GPU4  82%     12.7/15.0Gi
+ GPU5  83%     12.7/15.0Gi
+ GPU6  82%     12.7/15.0Gi
+
+ NIC1 tx: 446.49 Mbps, rx: 469.49 Mbps (eno5)
+
+ LLM: 48.59 tokens/
+```

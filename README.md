@@ -1,6 +1,6 @@
-# Python Script to Monitor CPU, GPU and Network on Ubuntu
+# Python Script to Monitor LLM Server, CPU, GPU and Network on Ubuntu
 
-This simple script provides a clean compact view of CPU performance, memory utilization, network as well as GPU memory and GPU performance. Great for monitoring your system as you run LLM and other AI/ML workloads. Network monitoring now automatically switches from Kbps/Mbps/Gbps as traffic increases on the tx and rx sides.
+This simple script provides a clean compact view of CPU performance, memory utilization, network as well as GPU memory and GPU performance. Great for monitoring your system as you run LLM and other AI/ML workloads. Network monitoring now automatically switches from Kbps/Mbps/Gbps as traffic increases on the tx and rx sides. If you use the plus version it supports multiple GPU and NIC as well as LLM server stats via API.
 
 ### Sample Output
 
@@ -77,3 +77,8 @@ GPU: 6 x Tesla T4
 
  LLM: 48.59 tokens/s
 ```
+
+### Future Features
+
+- Allow flags for NICs that you want to supress
+- Help page with examples 

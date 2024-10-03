@@ -50,10 +50,12 @@ iperf -c 5.182.18.49 -u -b 1000M
 
 If you run AI Monitor Plus, it supports multiple GPU and NIC per host (frontend and backend networking for example). It also has the ability to call the vLLM metrics API (if you are running vLLM) so that you can see the performance of the LLM in tokens/sec along side the workload metrics.
 
+To run AI Monitor Plus with LLM stats you need to specify the api-url in the format http://<IP_address>:<port>/metrics
+
 ### Sample Output of AI Monitor Plus
 
 ```
-$ ./ai-monitor-plus.py 
+$ ./ai-monitor-plus.py --api-url http://64.101.169.102:8000/metrics
 
 Cisco UCSC-C240-M5SX computing node (hostname: ai-11)
 

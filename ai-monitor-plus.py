@@ -113,12 +113,10 @@ def get_generation_throughput(api_url):
         if match:
             return float(match.group(1))
         else:
-            print("Metric not found in response")
-            return None
+            return "N/A [API down]"  # Return "N/A" if metric not found
 
-    except requests.RequestException as e:
-        print(f"Error retrieving throughput: {e}")
-        return None
+    except requests.RequestException:
+        return "N/A [API down]"  # Suppress error messages and return "N/A" if the API is down
 
 def main(stdscr, api_url):
     curses.curs_set(0)  # Hide the cursor
@@ -181,16 +179,16 @@ def main(stdscr, api_url):
             # Print Avg Generation Throughput if api_url is specified
             if api_url:  # Check if api_url is specified
                 generation_throughput = get_generation_throughput(api_url)
-                if generation_throughput is not None:
-                    stdscr.addstr(row_offset + 1, 0, f" LLM: {generation_throughput:.2f} tokens/s")
-                    row_offset += 1
+                stdscr.addstr(row_offset + 1, 0, f" LLM: {generation_throughput:.2f} tokens/s [API up]" if isinstance(generation_throughput, float) else f" LLM: {generation_throughput}")
+                row_offset += 1
 
             stdscr.clrtoeol()  # Clear to end of line to handle overwriting
             stdscr.refresh()
             time.sleep(interval)
 
     except KeyboardInterrupt:
-        stdscr.addstr(row_offset + 2, 0, "Exiting gracefully...\n")
+        stdscr.clear()  # Clear the screen before exiting
+        stdscr.addstr(0, 0, "Exiting gracefully...\n")
         stdscr.refresh()
         time.sleep(2)
 
@@ -201,4 +199,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     curses.wrapper(lambda stdscr: main(stdscr, args.api_url))  # Pass the api_url to the main function
-

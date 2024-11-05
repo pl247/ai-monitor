@@ -82,3 +82,9 @@ GPU: 6 x Tesla T4
 
 - Allow flags for NICs that you want to supress
 - Help page with examples 
+- Add flag to show individual and aggregate GPU power utilization
+- Add ability to display stats from several hosts all on one screen (distributed mode)
+
+### Known Issues
+
+The code does not currently detect your terminal window size. If the terminal window is too small to display all the output, then the ai-monitor-plus.py will crash with an error. To fix simply make sure that your terminal size is large enough to display all of the lines of the output.

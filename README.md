@@ -39,7 +39,7 @@ If you prefer you can just download the ai-monitor binary (10.7MB) from the Rele
 
 ### Testing Network Bandwidth
 
-The AI Monitor now supports resporting tx and rx speed on 1 sec interval. To test this you can send synthetic traffic using iPerf.
+The AI Monitor now supports reporting tx and rx speed on 1 sec interval. To test this you can send synthetic traffic using iPerf.
 
 ```
 sudo apt install iperf

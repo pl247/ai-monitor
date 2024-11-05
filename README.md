@@ -80,7 +80,7 @@ GPU: 6 x Tesla T4
 
 ### Future Features
 
-- Allow flags for NICs that you want to supress
+- Allow flags for NICs that you want to suppress
 - Help page with examples 
 - Add flag to show individual and aggregate GPU power utilization
 - Add ability to display stats from several hosts all on one screen (distributed mode)
